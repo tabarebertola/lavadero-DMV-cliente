@@ -14,15 +14,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;background:#f7f7f7;color:#1a1a1a}
 :root{--border:#e0e0e0;--rad:8px}
-.servicios-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.srv-card{border:1.5px solid var(--border);border-radius:16px;padding:18px 16px;cursor:pointer;transition:all .18s;background:#fff;position:relative;overflow:hidden}
-.srv-card:hover{border-color:#bbb;transform:translateY(-2px)}
-.srv-card.selected{border:2px solid #1a1a1a;background:#fafafa}
-.srv-card.selected::after{content:'✓';position:absolute;top:10px;right:12px;width:22px;height:22px;background:#1a1a1a;color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:22px;text-align:center}
-.srv-icon{font-size:24px;margin-bottom:8px}
-.srv-name{font-size:13px;font-weight:600;margin-bottom:4px}
-.srv-price{font-size:18px;font-weight:700;margin-bottom:2px;letter-spacing:-.3px}
-.srv-time{font-size:11px;color:#999}
 .cliente-hero{background:linear-gradient(135deg,#0f0f0f 0%,#2a2a2a 100%);color:#fff;padding:40px 24px 48px;text-align:center;position:relative;overflow:hidden}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:5px 14px;font-size:11px;color:rgba(255,255,255,.8);margin-bottom:16px}
 .cliente-hero h1{font-size:28px;font-weight:700;margin-bottom:8px;letter-spacing:-.5px}
@@ -32,10 +23,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .section-title{font-size:15px;font-weight:600;margin-bottom:4px}
 .section-sub{font-size:12px;color:#aaa;margin-bottom:16px}
 .step-bar{display:flex;align-items:center;margin-bottom:24px;background:#fff;border:1px solid #ebebeb;border-radius:100px;padding:6px 8px}
-.step-item{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:6px 8px;border-radius:100px;font-size:12px;color:#bbb;font-weight:500;transition:all .2s}
+.step-item{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:5px 4px;border-radius:100px;font-size:11px;color:#bbb;font-weight:500;transition:all .2s}
 .step-item.active{background:#1a1a1a;color:#fff}
 .step-item.done{color:#166534}
-.step-item span{font-size:11px;font-weight:600}
+.step-item span{font-size:10px;font-weight:600}
 .back-link{font-size:12px;color:#999;cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;padding:6px 0}
 .confirm-box{background:#f9f9f9;border:1px solid #ebebeb;border-radius:16px;padding:16px;margin-bottom:14px}
 .confirm-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
@@ -49,15 +40,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .success-circle svg{width:40px;height:40px;color:#16a34a}
 .success-title{font-size:22px;font-weight:700;margin-bottom:8px}
 .success-sub{font-size:13px;color:#aaa;margin-bottom:24px;line-height:1.6}
-.veh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
-.veh-card{border:1.5px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;text-align:center;transition:all .15s;background:#fff}
-.veh-card:hover{border-color:#bbb}
+/* VEHICULOS */
+.veh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.veh-card{border:1.5px solid var(--border);border-radius:16px;padding:20px 12px;cursor:pointer;text-align:center;transition:all .15s;background:#fff}
+.veh-card:hover{border-color:#bbb;transform:translateY(-2px)}
 .veh-card.selected{border:2px solid #1a1a1a;background:#fafafa}
-.veh-icon{font-size:22px;margin-bottom:4px}
-.veh-label{font-size:12px;font-weight:500}
+.veh-icon{font-size:32px;margin-bottom:8px}
+.veh-label{font-size:13px;font-weight:600}
+/* SERVICIOS */
+.servicios-list{display:flex;flex-direction:column;gap:10px}
+.srv-card{border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .15s;background:#fff;display:flex;align-items:center;justify-content:space-between}
+.srv-card:hover{border-color:#bbb}
+.srv-card.selected{border:2px solid #1a1a1a;background:#fafafa}
+.srv-info{flex:1}
+.srv-name{font-size:14px;font-weight:600;margin-bottom:2px}
+.srv-time{font-size:11px;color:#999}
+.srv-price{font-size:18px;font-weight:700;letter-spacing:-.3px;color:#1a1a1a}
+/* CAMPO */
 .field-modern label{display:block;font-size:11px;font-weight:600;color:#999;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
 .field-modern input{width:100%;padding:12px 14px;border:1.5px solid #ebebeb;border-radius:12px;background:#fff;font-size:14px;outline:none;transition:border-color .15s;margin-bottom:12px}
 .field-modern input:focus{border-color:#1a1a1a}
+/* CALENDARIO */
 .cal-header{display:flex;align-items:center;justify-content:space-between;padding:0 0 12px}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
 .cal-day-label{font-size:10px;font-weight:600;color:#bbb;text-align:center;padding:4px 0;text-transform:uppercase}
@@ -83,40 +86,65 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
   <div class="cliente-hero">
     <div class="hero-badge">🚗 Reservas online</div>
     <h1 id="hero-nombre">Lavadero DMV</h1>
-    <p>Elegí tu servicio, día y horario en menos de un minuto</p>
+    <p>Reservá tu turno en menos de un minuto</p>
   </div>
   <div class="cliente-body">
-    <!-- PASO 1 -->
+
+    <!-- PASO 1: VEHÍCULO -->
     <div id="c-step1">
       <div class="step-bar">
-        <div class="step-item active"><span>1</span> Servicio</div>
-        <div class="step-item"><span>2</span> Horario</div>
-        <div class="step-item"><span>3</span> Confirmar</div>
+        <div class="step-item active"><span>1</span> Vehículo</div>
+        <div class="step-item"><span>2</span> Servicio</div>
+        <div class="step-item"><span>3</span> Horario</div>
+        <div class="step-item"><span>4</span> Confirmar</div>
       </div>
       <div class="section-card">
-        <div class="section-title">Tipo de vehículo</div>
-        <div class="section-sub">El precio varía según el vehículo</div>
+        <div class="section-title">¿Qué vas a traer?</div>
+        <div class="section-sub">El precio varía según el tipo de vehículo</div>
         <div class="veh-grid">
-          <div class="veh-card" onclick="selVehiculo('Auto',this)"><div class="veh-icon">🚗</div><div class="veh-label">Auto</div></div>
-          <div class="veh-card" onclick="selVehiculo('Camioneta / SUV',this)"><div class="veh-icon">🛻</div><div class="veh-label">Camioneta / SUV</div></div>
-          <div class="veh-card" onclick="selVehiculo('Moto',this)"><div class="veh-icon">🏍️</div><div class="veh-label">Moto</div></div>
+          <div class="veh-card" onclick="selVehiculo('Auto',this)">
+            <div class="veh-icon">🚗</div>
+            <div class="veh-label">Auto</div>
+          </div>
+          <div class="veh-card" onclick="selVehiculo('Camioneta / SUV',this)">
+            <div class="veh-icon">🛻</div>
+            <div class="veh-label">Camioneta / SUV</div>
+          </div>
+          <div class="veh-card" onclick="selVehiculo('Moto',this)">
+            <div class="veh-icon">🏍️</div>
+            <div class="veh-label">Moto</div>
+          </div>
         </div>
       </div>
-      <div class="section-card">
-        <div class="section-title">¿Qué servicio necesitás?</div>
-        <div class="section-sub">Elegí el paquete que mejor se adapte</div>
-        <div class="servicios-grid" id="srv-grid"><div style="text-align:center;padding:24px;color:#aaa">Elegí un vehículo para ver los precios</div></div>
-      </div>
-      <button class="btn-primary" onclick="clienteStep2()">Elegir día y horario →</button>
+      <button class="btn-primary" onclick="irPaso2()">Siguiente →</button>
     </div>
-    <!-- PASO 2 -->
+
+    <!-- PASO 2: SERVICIO -->
     <div id="c-step2" style="display:none">
       <div class="step-bar">
-        <div class="step-item done"><span>✓</span> Servicio</div>
-        <div class="step-item active"><span>2</span> Horario</div>
-        <div class="step-item"><span>3</span> Confirmar</div>
+        <div class="step-item done"><span>✓</span> Vehículo</div>
+        <div class="step-item active"><span>2</span> Servicio</div>
+        <div class="step-item"><span>3</span> Horario</div>
+        <div class="step-item"><span>4</span> Confirmar</div>
       </div>
       <span class="back-link" onclick="goStep(1)">← Volver</span>
+      <div class="section-card">
+        <div class="section-title">¿Qué servicio necesitás?</div>
+        <div class="section-sub" id="sub-veh"></div>
+        <div class="servicios-list" id="srv-list"></div>
+      </div>
+      <button class="btn-primary" onclick="irPaso3()">Siguiente →</button>
+    </div>
+
+    <!-- PASO 3: HORARIO -->
+    <div id="c-step3" style="display:none">
+      <div class="step-bar">
+        <div class="step-item done"><span>✓</span> Vehículo</div>
+        <div class="step-item done"><span>✓</span> Servicio</div>
+        <div class="step-item active"><span>3</span> Horario</div>
+        <div class="step-item"><span>4</span> Confirmar</div>
+      </div>
+      <span class="back-link" onclick="goStep(2)">← Volver</span>
       <div class="section-card">
         <div class="section-title">¿Qué día?</div>
         <div class="section-sub">Seleccioná una fecha disponible</div>
@@ -130,20 +158,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
       <div id="slots-section" style="display:none">
         <div class="section-card">
           <div class="section-title">Horarios disponibles</div>
-          <div class="section-sub">Los horarios tachados ya están ocupados</div>
+          <div class="section-sub">Los tachados ya están ocupados</div>
           <div class="slots-grid" id="slots-container"></div>
         </div>
-        <button class="btn-primary" onclick="clienteStep3()">Continuar →</button>
+        <button class="btn-primary" onclick="irPaso4()">Continuar →</button>
       </div>
     </div>
-    <!-- PASO 3 -->
-    <div id="c-step3" style="display:none">
+
+    <!-- PASO 4: CONFIRMAR -->
+    <div id="c-step4" style="display:none">
       <div class="step-bar">
+        <div class="step-item done"><span>✓</span> Vehículo</div>
         <div class="step-item done"><span>✓</span> Servicio</div>
         <div class="step-item done"><span>✓</span> Horario</div>
-        <div class="step-item active"><span>3</span> Confirmar</div>
+        <div class="step-item active"><span>4</span> Confirmar</div>
       </div>
-      <span class="back-link" onclick="goStep(2)">← Volver</span>
+      <span class="back-link" onclick="goStep(3)">← Volver</span>
       <div class="section-card">
         <div class="section-title">Resumen del turno</div>
         <div class="confirm-box" id="resumen-turno" style="margin-bottom:0;background:#fff;border:none;padding:8px 0"></div>
@@ -157,8 +187,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
       </div>
       <button class="btn-primary" id="btn-confirmar" onclick="confirmarTurno()">Confirmar turno</button>
     </div>
-    <!-- PASO 4 -->
-    <div id="c-step4" style="display:none">
+
+    <!-- PASO 5: ÉXITO -->
+    <div id="c-step5" style="display:none">
       <div class="success-wrap">
         <div class="success-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="success-title">¡Turno confirmado!</div>
@@ -167,6 +198,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
         <button class="btn-primary" style="margin-top:16px" onclick="nuevoTurno()">Reservar otro turno</button>
       </div>
     </div>
+
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -177,12 +209,14 @@ const USER_ID='20cb2080-45a2-4ad8-9730-2b4e512f678d';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const VEH_KEYS={'Auto':'auto','Camioneta / SUV':'camioneta','Moto':'moto'};
 let servicios=[],turnos=[],config={},calMes=new Date();
-let selServicio=null,selFecha=null,selHora=null,selVeh=null;
+let selVeh=null,selServicio=null,selFecha=null,selHora=null;
+
 function hoy(){return new Date().toISOString().split('T')[0]}
 function fmtFecha(s){if(!s)return'';const[y,m,d]=s.split('-');const ms=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];return`${parseInt(d)} ${ms[parseInt(m)-1]} ${y}`}
 function fmtPrecio(n){return'$'+parseInt(n).toLocaleString('es-AR')}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
 function getPrecio(srv,vehiculo){if(!srv)return 0;const pv=srv.precios_vehiculo||{};const key=VEH_KEYS[vehiculo];return(key&&pv[key])||srv.precio||0;}
+
 async function loadAll(){
   const[{data:srv},{data:cfg},{data:trn}]=await Promise.all([
     sb.from('servicios_lavadero').select('*').eq('user_id',USER_ID).eq('activo',true).order('id'),
@@ -193,38 +227,56 @@ async function loadAll(){
   (cfg||[]).forEach(c=>config[c.clave]=c.valor);
   document.getElementById('hero-nombre').textContent='🚗 '+(config.nombre_negocio||'Lavadero DMV');
 }
-const srvIcons=['🧼','✨','💎','🪣'];
-function renderSrvGrid(){
-  if(!selVeh){
-    document.getElementById('srv-grid').innerHTML='<div style="text-align:center;padding:24px;color:#aaa">Elegí un vehículo para ver los precios</div>';
-    return;
-  }
-  document.getElementById('srv-grid').innerHTML=servicios.length
-    ?servicios.map((s,i)=>{
-        const precio=getPrecio(s,selVeh);
-        return`<div class="srv-card${selServicio===s.id?' selected':''}" onclick="elegirServicio(${s.id})">
-          <div class="srv-icon">${srvIcons[i%srvIcons.length]}</div>
-          <div class="srv-name">${s.nombre}</div>
-          <div class="srv-price">${fmtPrecio(precio)}</div>
-          <div class="srv-time">⏱ ${s.duracion_min} min</div>
-        </div>`;
-      }).join('')
-    :'<div style="text-align:center;padding:24px;color:#aaa">No hay servicios disponibles</div>';
+
+function goStep(n){
+  [1,2,3,4,5].forEach(i=>document.getElementById('c-step'+i).style.display=i===n?'block':'none');
+  window.scrollTo(0,0);
 }
-function elegirServicio(id){selServicio=id;renderSrvGrid();}
+
 function selVehiculo(nombre,el){
   selVeh=nombre;
   document.querySelectorAll('.veh-card').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
-  selServicio=null;
-  renderSrvGrid();
 }
-function clienteStep2(){
+
+function irPaso2(){
   if(!selVeh){toast('⚠ Elegí tu vehículo');return;}
-  if(!selServicio){toast('⚠ Elegí un servicio');return;}
-  goStep(2);renderCal();
+  selServicio=null;
+  document.getElementById('sub-veh').textContent='Precios para '+selVeh;
+  renderSrvList();
+  goStep(2);
 }
-function goStep(n){[1,2,3,4].forEach(i=>document.getElementById('c-step'+i).style.display=i===n?'block':'none');}
+
+function renderSrvList(){
+  document.getElementById('srv-list').innerHTML=servicios.length
+    ?servicios.map(s=>{
+        const precio=getPrecio(s,selVeh);
+        return`<div class="srv-card${selServicio===s.id?' selected':''}" onclick="elegirServicio(${s.id})">
+          <div class="srv-info">
+            <div class="srv-name">${s.nombre}</div>
+            <div class="srv-time">⏱ ${s.duracion_min} min</div>
+          </div>
+          <div class="srv-price">${fmtPrecio(precio)}</div>
+        </div>`;
+      }).join('')
+    :'<div style="text-align:center;padding:24px;color:#aaa">No hay servicios disponibles</div>';
+}
+
+function elegirServicio(id){
+  selServicio=id;
+  document.querySelectorAll('.srv-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.srv-card').forEach(c=>{
+    if(c.onclick&&c.onclick.toString().includes('('+id+')'))c.classList.add('selected');
+  });
+  renderSrvList();
+}
+
+function irPaso3(){
+  if(!selServicio){toast('⚠ Elegí un servicio');return;}
+  goStep(3);
+  renderCal();
+}
+
 function renderCal(){
   const hoyDate=new Date();
   const y=calMes.getFullYear(),m=calMes.getMonth();
@@ -245,8 +297,15 @@ function renderCal(){
   }
   document.getElementById('cal-cliente').innerHTML=html;
 }
+
 function cambiarMes(dir){calMes=new Date(calMes.getFullYear(),calMes.getMonth()+dir,1);renderCal();}
-function selDia(fecha){selFecha=fecha;selHora=null;renderCal();renderSlots();document.getElementById('slots-section').style.display='block';}
+
+function selDia(fecha){
+  selFecha=fecha;selHora=null;
+  renderCal();renderSlots();
+  document.getElementById('slots-section').style.display='block';
+}
+
 function renderSlots(){
   const inicio=config.horario_inicio||'08:00';
   const fin=config.horario_fin||'18:00';
@@ -261,20 +320,23 @@ function renderSlots(){
     return`<div class="slot${taken?' taken':''}${selHora===h&&!taken?' selected':''}" onclick="${taken?'':` selHoraCliente('${h}')`}">${h}</div>`;
   }).join('');
 }
+
 function selHoraCliente(h){selHora=h;renderSlots();}
-function clienteStep3(){
+
+function irPaso4(){
   if(!selFecha){toast('⚠ Elegí un día');return;}
   if(!selHora){toast('⚠ Elegí un horario');return;}
   const srv=servicios.find(s=>s.id===selServicio);
   const precio=getPrecio(srv,selVeh);
   document.getElementById('resumen-turno').innerHTML=`
-    <div class="confirm-row"><span class="label">Servicio</span><span>${srv.nombre}</span></div>
     <div class="confirm-row"><span class="label">Vehículo</span><span>${selVeh}</span></div>
+    <div class="confirm-row"><span class="label">Servicio</span><span>${srv.nombre}</span></div>
     <div class="confirm-row"><span class="label">Día</span><span>${fmtFecha(selFecha)}</span></div>
     <div class="confirm-row"><span class="label">Hora</span><span>${selHora}</span></div>
     <div class="confirm-row"><span class="label">Total</span><span>${fmtPrecio(precio)}</span></div>`;
-  goStep(3);
+  goStep(4);
 }
+
 async function confirmarTurno(){
   const nombre=document.getElementById('c-nombre').value.trim();
   const wsp=document.getElementById('c-wsp').value.trim();
@@ -293,15 +355,16 @@ async function confirmarTurno(){
   btn.disabled=false;btn.textContent='Confirmar turno';
   if(error){toast('Error: '+error.message);return;}
   document.getElementById('confirm-detalle').innerHTML=`
-    <div class="confirm-row"><span class="label">Servicio</span><span>${srv.nombre}</span></div>
     <div class="confirm-row"><span class="label">Vehículo</span><span>${selVeh}</span></div>
+    <div class="confirm-row"><span class="label">Servicio</span><span>${srv.nombre}</span></div>
     <div class="confirm-row"><span class="label">Día</span><span>${fmtFecha(selFecha)}</span></div>
     <div class="confirm-row"><span class="label">Hora</span><span>${selHora}</span></div>
     <div class="confirm-row"><span class="label">Total</span><span>${fmtPrecio(precio)}</span></div>`;
-  await loadAll();goStep(4);
+  await loadAll();goStep(5);
 }
+
 function nuevoTurno(){
-  selServicio=null;selFecha=null;selHora=null;selVeh=null;
+  selVeh=null;selServicio=null;selFecha=null;selHora=null;
   document.getElementById('c-nombre').value='';
   document.getElementById('c-wsp').value='';
   document.getElementById('c-patente').value='';
@@ -309,6 +372,7 @@ function nuevoTurno(){
   document.querySelectorAll('.veh-card').forEach(c=>c.classList.remove('selected'));
   goStep(1);
 }
+
 loadAll();
 </script>
 </body>
