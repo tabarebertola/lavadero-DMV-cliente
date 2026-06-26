@@ -9,7 +9,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/tabarebertola/lavadero-DMV-cliente/main/logo.png">
 <meta property="og:url" content="https://lavadero-six.vercel.app">
 <meta property="og:type" content="website">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;background:#f7f7f7;color:#1a1a1a}
@@ -129,7 +129,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
       </div>
       <span class="back-link" onclick="goStep(1)">← Volver</span>
       <div class="section-card">
-        <div class="section-title">¿Qué servicio necesitás?</div>
+        <div class="section-title">Elegí tu servicio</div>
         <div class="section-sub" id="sub-veh"></div>
         <div class="servicios-list" id="srv-list"></div>
       </div>
@@ -180,10 +180,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
       </div>
       <div class="section-card">
         <div class="section-title">Tus datos</div>
-        <div class="section-sub">Para mandarte el recordatorio por WhatsApp</div>
+        <div class="section-sub">Completá tus datos para confirmar el turno</div>
         <div class="field-modern"><label>Nombre y apellido</label><input type="text" id="c-nombre" placeholder="Juan García"></div>
-        <div class="field-modern"><label>WhatsApp</label><input type="tel" id="c-wsp" placeholder="3491234567"></div>
-        <div class="field-modern"><label>Patente (opcional)</label><input type="text" id="c-patente" placeholder="AA 123 BB" style="text-transform:uppercase;margin-bottom:0"></div>
+        
+        <div class="field-modern"><label>¿Qué vehículo traés?</label><input type="text" id="c-vehiculo-detalle" placeholder="Ej: Toyota Hilux, VW Vento..." style="margin-bottom:0"></div>
       </div>
       <button class="btn-primary" id="btn-confirmar" onclick="confirmarTurno()">Confirmar turno</button>
     </div>
@@ -204,7 +204,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 <div class="toast" id="toast"></div>
 <script>
 const SUPABASE_URL='https://fbmcqpuohcaffillaund.supabase.co';
-const SUPABASE_KEY='sb_publishable_Bx24U3RsiRJEukDf3CkbNA_OW8pKiN-';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZibWNxcHVvaGNhZmZpbGxhdW5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMxMDM4MDEsImV4cCI6MjA1ODY3OTgwMX0.JER8sFyBhxNOWFpX3LKkeDwMsChzCLJRPFvlV5c1aPI';
 const USER_ID='20cb2080-45a2-4ad8-9730-2b4e512f678d';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const VEH_KEYS={'Auto':'auto','Camioneta / SUV':'camioneta','Moto':'moto'};
@@ -339,17 +339,17 @@ function irPaso4(){
 
 async function confirmarTurno(){
   const nombre=document.getElementById('c-nombre').value.trim();
-  const wsp=document.getElementById('c-wsp').value.trim();
+  const vehiculoDetalle=document.getElementById('c-vehiculo-detalle').value.trim();
   if(!nombre){toast('⚠ Ingresá tu nombre');return;}
-  if(!wsp){toast('⚠ Ingresá tu WhatsApp');return;}
+  if(!vehiculoDetalle){toast('⚠ Ingresá tu vehículo');return;}
   const btn=document.getElementById('btn-confirmar');
   btn.disabled=true;btn.textContent='Confirmando...';
   const srv=servicios.find(s=>s.id===selServicio);
   const precio=getPrecio(srv,selVeh);
   const{error}=await sb.from('turnos_lavadero').insert([{
-    user_id:USER_ID,fecha:selFecha,hora:selHora,nombre,whatsapp:wsp,
-    vehiculo:selVeh,
-    patente:document.getElementById('c-patente').value.trim().toUpperCase()||null,
+    user_id:USER_ID,fecha:selFecha,hora:selHora,nombre,whatsapp:'',
+    vehiculo:selVeh+' — '+vehiculoDetalle,
+    patente:null,
     servicio:srv.nombre,precio,estado:'pendiente'
   }]);
   btn.disabled=false;btn.textContent='Confirmar turno';
@@ -366,8 +366,7 @@ async function confirmarTurno(){
 function nuevoTurno(){
   selVeh=null;selServicio=null;selFecha=null;selHora=null;
   document.getElementById('c-nombre').value='';
-  document.getElementById('c-wsp').value='';
-  document.getElementById('c-patente').value='';
+  document.getElementById('c-vehiculo-detalle').value='';
   document.getElementById('slots-section').style.display='none';
   document.querySelectorAll('.veh-card').forEach(c=>c.classList.remove('selected'));
   goStep(1);
