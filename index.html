@@ -52,7 +52,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .success-circle svg{width:40px;height:40px;color:#16a34a}
 .success-title{font-size:22px;font-weight:700;margin-bottom:8px;letter-spacing:-.4px}
 .success-sub{font-size:13px;color:#aaa;margin-bottom:24px;line-height:1.6}
-.veh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
+.veh-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px}
 .veh-card{border:1.5px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;text-align:center;transition:all .15s;background:#fff}
 .veh-card:hover{border-color:#bbb}
 .veh-card.selected{border:2px solid #1a1a1a;background:#fafafa}
@@ -117,8 +117,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
         <div class="section-title">Tipo de vehículo</div>
         <div class="section-sub">¿Qué vas a traer?</div>
         <div class="veh-grid">
-          <div class="veh-card" onclick="selVehiculo('Auto',this)"><div class="veh-icon">🚗</div><div class="veh-label">Auto</div></div>
-          
+          <div class="veh-card" onclick="selVehiculo('Auto chico',this)"><div class="veh-icon">🚗</div><div class="veh-label">Auto chico</div></div>
+          <div class="veh-card" onclick="selVehiculo('Auto mediano',this)"><div class="veh-icon">🚙</div><div class="veh-label">Auto mediano</div></div>
           <div class="veh-card" onclick="selVehiculo('Camioneta / SUV',this)"><div class="veh-icon">🛻</div><div class="veh-label">Camioneta / SUV</div></div>
           <div class="veh-card" onclick="selVehiculo('Moto',this)"><div class="veh-icon">🏍️</div><div class="veh-label">Moto</div></div>
         </div>
@@ -201,8 +201,6 @@ const USER_ID = '20cb2080-45a2-4ad8-9730-2b4e512f678d'; // Gian — Lavadero DMV
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const VEH_KEYS = {'Auto':'auto','Camioneta / SUV':'camioneta','Moto':'moto'};
-function getPrecio(srv, veh) { if(!srv) return 0; const pv = srv.precios_vehiculo||{}; const k = VEH_KEYS[veh]; return (k && pv[k]) || srv.precio || 0; }
 let servicios = [], turnos = [], config = {}, calMes = new Date();
 let selServicio = null, selFecha = null, selHora = null, selVeh = null;
 
@@ -232,7 +230,7 @@ function renderSrvGrid() {
         <div class="srv-card${selServicio === s.id ? ' selected' : ''}" onclick="elegirServicio(${s.id})">
           <div class="srv-icon">${srvIcons[i % srvIcons.length]}</div>
           <div class="srv-name">${s.nombre}</div>
-          <div class="srv-price">${fmtPrecio(getPrecio(s, selVeh))}</div>
+          <div class="srv-price">${fmtPrecio(s.precio)}</div>
           <div class="srv-time">⏱ ${s.duracion_min} min</div>
         </div>`).join('')
     : '<div style="text-align:center;padding:24px;color:#aaa;font-size:13px">No hay servicios disponibles por el momento</div>';
@@ -301,11 +299,11 @@ function renderSlots() {
   const ocupados = turnos.filter(t => t.fecha === selFecha && t.estado !== 'cancelado').map(t => t.hora.slice(0,5));
   document.getElementById('slots-container').innerHTML = slots.map(h => {
     const taken = ocupados.includes(h);
-    return `<div class="slot${taken ? ' taken' : ''}${selHora === h && !taken ? ' selected' : ''}" onclick="${taken ? '' : `selHoraCliente('${h}')`}">${h}</div>`;
+    return `<div class="slot${taken ? ' taken' : ''}${selHora === h && !taken ? ' selected' : ''}" onclick="${taken ? '' : `selHora('${h}')`}">${h}</div>`;
   }).join('');
 }
 
-function selHoraCliente(h) { selHora = h; renderSlots(); }
+function selHora(h) { selHora = h; renderSlots(); }
 
 function clienteStep3() {
   if (!selFecha) { toast('⚠ Elegí un día'); return; }
@@ -316,7 +314,7 @@ function clienteStep3() {
     <div class="confirm-row"><span class="label">Vehículo</span><span>${selVeh}</span></div>
     <div class="confirm-row"><span class="label">Día</span><span>${fmtFecha(selFecha)}</span></div>
     <div class="confirm-row"><span class="label">Hora</span><span>${selHora}</span></div>
-    <div class="confirm-row"><span class="label">Total</span><span>${fmtPrecio(getPrecio(srv, selVeh))}</span></div>`;
+    <div class="confirm-row"><span class="label">Total</span><span>${fmtPrecio(srv.precio)}</span></div>`;
   goStep(3);
 }
 
@@ -328,13 +326,12 @@ async function confirmarTurno() {
   const btn = document.getElementById('btn-confirmar');
   btn.disabled = true; btn.textContent = 'Confirmando...';
   const srv = servicios.find(s => s.id === selServicio);
-  const precio = getPrecio(srv, selVeh);
   const { error } = await sb.from('turnos_lavadero').insert([{
     user_id: USER_ID,
     fecha: selFecha, hora: selHora, nombre, whatsapp: wsp,
     vehiculo: selVeh,
     patente: document.getElementById('c-patente').value.trim().toUpperCase() || null,
-    servicio: srv.nombre, precio, estado: 'pendiente'
+    servicio: srv.nombre, precio: srv.precio, estado: 'pendiente'
   }]);
   btn.disabled = false; btn.textContent = 'Confirmar turno';
   if (error) { toast('Error al confirmar: ' + error.message); return; }
@@ -343,7 +340,7 @@ async function confirmarTurno() {
     <div class="confirm-row"><span class="label">Vehículo</span><span>${selVeh}</span></div>
     <div class="confirm-row"><span class="label">Día</span><span>${fmtFecha(selFecha)}</span></div>
     <div class="confirm-row"><span class="label">Hora</span><span>${selHora}</span></div>
-    <div class="confirm-row"><span class="label">Total</span><span>${fmtPrecio(precio)}</span></div>`;
+    <div class="confirm-row"><span class="label">Total</span><span>${fmtPrecio(srv.precio)}</span></div>`;
   await loadAll();
   goStep(4);
 }
