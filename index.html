@@ -3,24 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lavadero DMV — Reservá tu turno</title>
+<title>DMV Panel — Administración</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="DMV Panel">
 <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/tabarebertola/operix/main/logo%20lavadero.jpeg">
-<link rel="manifest" href="data:application/json,{
-  %22name%22:%22Lavadero%20DMV%22,
-  %22short_name%22:%22DMV%22,
-  %22start_url%22:%22.%22,
-  %22display%22:%22standalone%22,
-  %22background_color%22:%22%230a0a0a%22,
-  %22theme_color%22:%22%230a0a0a%22,
-  %22icons%22:[{%22src%22:%22https://raw.githubusercontent.com/tabarebertola/operix/main/logo%20lavadero.jpeg%22,%22sizes%22:%22192x192%22,%22type%22:%22image/jpeg%22}]
-}">
+<link rel="manifest" href="data:application/json,{%22name%22:%22DMV%20Panel%22,%22short_name%22:%22DMV%22,%22start_url%22:%22./panel.html%22,%22display%22:%22standalone%22,%22background_color%22:%22%230a0a0a%22,%22theme_color%22:%22%230a0a0a%22,%22icons%22:[{%22src%22:%22https://raw.githubusercontent.com/tabarebertola/operix/main/logo%20lavadero.jpeg%22,%22sizes%22:%22192x192%22,%22type%22:%22image/jpeg%22}]}">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
+
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--black:#0a0a0a;--gold:#d12027;--gold2:#e63936;--silver:#9a9a9a;--border:#ebebeb;--rad:10px;--rad-lg:16px;--rad-xl:24px}
 body{font-family:'Inter',sans-serif;font-size:14px;background:#f4f4f4;color:#1a1a1a;-webkit-font-smoothing:antialiased}
@@ -290,6 +283,7 @@ tr:last-child td{border-bottom:none}
 .prod-pr{font-size:16px;font-weight:900;color:#0a0a0a;letter-spacing:-.3px}
 .prod-badge{position:absolute;top:8px;left:8px;background:#0a0a0a;color:#e63936;font-size:9px;font-weight:800;padding:3px 7px;border-radius:100px}
 .catalogo-empty{text-align:center;padding:40px 20px;color:#bbb;font-size:13px}
+
 </style>
 </head>
 <body>
@@ -303,161 +297,6 @@ tr:last-child td{border-bottom:none}
     <button class="btn solid" style="width:100%;height:42px;font-size:14px;font-weight:700" onclick="doLogin()">Ingresar</button>
     <div style="margin-top:16px;text-align:center"><span style="font-size:12px;color:#aaa;cursor:pointer" onclick="showCliente()">← Volver al sitio</span></div>
   </div>
-</div>
-
-<!-- VISTA CLIENTE -->
-<div id="cliente-screen">
-  <div class="dmv-wrap">
-    <div class="dmv-hero">
-      <div class="dmv-hero-bg"></div>
-      <div class="dmv-hero-lines"></div>
-      <img src="https://raw.githubusercontent.com/tabarebertola/operix/main/logo%20lavadero.jpeg" alt="Lavadero DMV" style="position:relative;z-index:2;max-width:280px;width:80%;margin-bottom:16px" onerror="this.style.display='none';document.getElementById('hero-text-fallback').style.display='block'">
-      <div id="hero-text-fallback" style="display:none;position:relative;z-index:2">
-        <div class="dmv-title">Lavadero <em>DMV</em></div>
-      </div>
-      <div class="dmv-subtitle">Reservá tu turno en menos de 2 minutos</div>
-      <div class="dmv-badge" style="margin-top:14px;margin-bottom:0">Reservas online · Ascensión</div>
-    </div>
-
-    <div class="dmv-body">
-
-      <!-- PASO 1: VEHÍCULO -->
-      <div id="c-step1">
-        <div class="dmv-steps">
-          <div class="dmv-step active">1 · Vehículo</div>
-          <div class="dmv-step">2 · Servicio</div>
-          <div class="dmv-step">3 · Horario</div>
-          <div class="dmv-step">4 · Confirmar</div>
-        </div>
-        <div class="dmv-card">
-          <div class="dmv-card-title">¿Qué vehículo traés?</div>
-          <div class="dmv-card-sub">Seleccioná el tipo para ver los servicios disponibles</div>
-          <div class="veh-grid">
-            <div class="veh-item" onclick="selVehiculo('Auto',this)">
-              <div class="veh-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <img class="veh-img" src="https://raw.githubusercontent.com/tabarebertola/operix/main/vento.png" alt="Auto">
-              <div class="veh-nm">Auto</div>
-            </div>
-            <div class="veh-item" onclick="selVehiculo('Moto',this)">
-              <div class="veh-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <img class="veh-img" src="https://raw.githubusercontent.com/tabarebertola/operix/main/titan.png" alt="Moto">
-              <div class="veh-nm">Moto</div>
-            </div>
-            <div class="veh-item" onclick="selVehiculo('Camioneta / SUV',this)">
-              <div class="veh-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <img class="veh-img" src="https://raw.githubusercontent.com/tabarebertola/operix/main/ram.png" alt="Camioneta / SUV">
-              <div class="veh-nm">Camioneta / SUV</div>
-            </div>
-          </div>
-        </div>
-        <button class="dmv-btn gold" onclick="clienteStep2()">
-          Siguiente — Elegir servicio →
-        </button>
-      </div>
-
-      <!-- PASO 2: SERVICIO -->
-      <div id="c-step2" style="display:none">
-        <div class="dmv-steps">
-          <div class="dmv-step done">✓ Vehículo</div>
-          <div class="dmv-step active">2 · Servicio</div>
-          <div class="dmv-step">3 · Horario</div>
-          <div class="dmv-step">4 · Confirmar</div>
-        </div>
-        <span class="dmv-back" onclick="goClienteStep(1)">← Volver</span>
-        <div class="dmv-card">
-          <div class="dmv-card-title">¿Qué servicio necesitás?</div>
-          <div class="dmv-card-sub">Precios para <span id="veh-label-srv" style="color:#0a0a0a;font-weight:700"></span></div>
-          <div class="srv-list" id="srv-grid"></div>
-        </div>
-        <button class="dmv-btn gold" onclick="clienteStep3()">Siguiente — Elegir horario →</button>
-      </div>
-
-      <!-- PASO 3: HORARIO -->
-      <div id="c-step3" style="display:none">
-        <div class="dmv-steps">
-          <div class="dmv-step done">✓ Vehículo</div>
-          <div class="dmv-step done">✓ Servicio</div>
-          <div class="dmv-step active">3 · Horario</div>
-          <div class="dmv-step">4 · Confirmar</div>
-        </div>
-        <span class="dmv-back" onclick="goClienteStep(2)">← Volver</span>
-        <div class="dmv-card">
-          <div class="dmv-card-title">Elegí el día</div>
-          <div class="dmv-card-sub">Los puntos dorados indican días con turnos</div>
-          <div class="dmv-cal-header">
-            <button class="dmv-cal-nav" onclick="cambiarMes(-1)">‹</button>
-            <span id="cal-titulo"></span>
-            <button class="dmv-cal-nav" onclick="cambiarMes(1)">›</button>
-          </div>
-          <div class="dmv-cal-grid" id="cal-cliente"></div>
-        </div>
-        <div id="slots-section" style="display:none">
-          <div class="dmv-card">
-            <div class="dmv-card-title">Horarios disponibles</div>
-            <div class="dmv-card-sub">Los tachados ya están reservados</div>
-            <div class="dmv-slots" id="slots-container"></div>
-          </div>
-          <button class="dmv-btn gold" onclick="clienteStep4()">Siguiente — Confirmar →</button>
-        </div>
-      </div>
-
-      <!-- PASO 4: DATOS -->
-      <div id="c-step4" style="display:none">
-        <div class="dmv-steps">
-          <div class="dmv-step done">✓ Vehículo</div>
-          <div class="dmv-step done">✓ Servicio</div>
-          <div class="dmv-step done">✓ Horario</div>
-          <div class="dmv-step active">4 · Confirmar</div>
-        </div>
-        <span class="dmv-back" onclick="goClienteStep(3)">← Volver</span>
-        <div class="dmv-card">
-          <div class="dmv-card-title">Resumen de tu turno</div>
-          <div class="dmv-resumen" id="resumen-turno"></div>
-        </div>
-        <div class="dmv-card">
-          <div class="dmv-card-title">Tus datos</div>
-          <div class="dmv-card-sub">Para mandarte la confirmación por WhatsApp</div>
-          <div class="dmv-field"><label>Nombre y apellido</label><input type="text" id="c-nombre" placeholder="Juan García"></div>
-          <div class="dmv-field"><label>Modelo del auto</label><input type="text" id="c-modelo" placeholder="Ej: Corolla Cross, Vento, Amarok"></div>
-        </div>
-        <button class="dmv-btn gold" onclick="confirmarTurno()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Confirmar turno
-        </button>
-      </div>
-
-      <!-- PASO 5: CONFIRMADO -->
-      <div id="c-step5" style="display:none">
-        <div style="text-align:center;padding:40px 16px 28px">
-          <div style="width:90px;height:90px;border-radius:50%;background:#f0fdf4;border:3px solid #bbf7d0;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:popIn .4s ease">
-            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:drawCheck .5s ease .2s both"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div style="font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;color:#0a0a0a">¡Turno confirmado!</div>
-          <div style="font-size:13px;color:#aaa;line-height:1.6;margin-bottom:24px">Tu reserva fue registrada.<br>El lavadero se va a comunicar con vos.</div>
-          <div class="dmv-resumen" id="confirm-detalle" style="text-align:left;margin-bottom:20px"></div>
-          <button class="dmv-btn gold" onclick="goClienteStep(6);renderCatalogo()" style="margin-bottom:0">
-            Ver productos del local →
-          </button>
-        </div>
-      </div>
-
-      <!-- PASO 6: CATÁLOGO -->
-      <div id="c-step6" style="display:none">
-        <div class="catalogo-header">
-          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:100px;padding:4px 12px;font-size:10px;color:var(--gold2);font-weight:700;letter-spacing:.08em;margin-bottom:14px">📍 DISPONIBLES EN EL LOCAL</div>
-          <h2>Productos DMV</h2>
-          <p>Estos productos los encontrás físicamente en el lavadero el día de tu turno</p>
-        </div>
-        <div class="prod-grid" id="prod-grid">
-          <div class="catalogo-empty" style="grid-column:1/-1">Cargando productos...</div>
-        </div>
-        <span class="dmv-back" onclick="goClienteStep(5)" style="display:flex;justify-content:center;margin-bottom:12px">← Volver a mi turno</span>
-        <button class="dmv-btn ghost" onclick="nuevoTurnoCliente()">Reservar otro turno</button>
-      </div>
-
-    </div>
-  </div>
-  <div class="dmv-footer"><span onclick="showLogin()">Panel administrador</span></div>
 </div>
 
 <!-- PANEL DUEÑO -->
@@ -699,12 +538,65 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
+<!-- MODALES -->
+<!-- MODAL TURNO -->
+<div class="overlay" id="overlay-turno">
+  <div class="modal">
+    <div class="modal-head"><h2>Nuevo turno</h2><button class="ic-btn" onclick="closeModalTurno()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body">
+      <div class="g2"><div class="field"><label>Fecha</label><input type="date" id="t-fecha"></div><div class="field"><label>Hora</label><input type="time" id="t-hora"></div></div>
+      <div class="field"><label>Nombre cliente</label><input type="text" id="t-nombre" placeholder="Juan García"></div>
+      <div class="field"><label>WhatsApp</label><input type="tel" id="t-wsp" placeholder="3491234567"></div>
+      <div class="g2">
+        <div class="field"><label>Servicio</label><select id="t-servicio"></select></div>
+        <div class="field"><label>Vehículo</label>
+          <select id="t-vehiculo"><option value="">Seleccioná...</option><option>Auto</option><option>Moto</option><option>Camioneta / SUV</option></select>
+        </div>
+      </div>
+      <div class="g2"><div class="field"><label>Patente</label><input type="text" id="t-patente" placeholder="AA 123 BB"></div><div class="field"><label>Precio ($)</label><input type="number" id="t-precio"></div></div>
+      <div class="field"><label>Estado</label><select id="t-estado"><option value="pendiente">Pendiente</option><option value="confirmado">Confirmado</option></select></div>
+    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModalTurno()">Cancelar</button><button class="btn solid" onclick="saveTurno()">Guardar</button></div>
+  </div>
+</div>
+
+<!-- MODAL SERVICIO -->
+<div class="overlay" id="overlay-servicio">
+  <div class="modal">
+    <div class="modal-head"><h2 id="srv-modal-titulo">Nuevo servicio</h2><button class="ic-btn" onclick="closeModalServicio()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nombre</label><input type="text" id="s-nombre" placeholder="Lavado completo"></div>
+      <div class="g2"><div class="field"><label>Precio ($)</label><input type="number" id="s-precio"></div><div class="field"><label>Duración (min)</label><input type="number" id="s-duracion"></div></div>
+      <div class="field"><label>Estado</label><select id="s-activo"><option value="true">Activo</option><option value="false">Inactivo</option></select></div>
+    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModalServicio()">Cancelar</button><button class="btn solid" onclick="saveServicio()">Guardar</button></div>
+  </div>
+</div>
+
+<!-- MODAL PRODUCTO -->
+<div class="overlay" id="overlay-producto">
+  <div class="modal">
+    <div class="modal-head"><h2 id="prod-modal-titulo">Nuevo producto</h2><button class="ic-btn" onclick="closeModalProducto()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nombre del producto</label><input type="text" id="pr-nombre" placeholder="Alfombra universal"></div>
+      <div class="field"><label>Descripción (opcional)</label><input type="text" id="pr-desc" placeholder="Para todo tipo de vehículo"></div>
+      <div class="g2">
+        <div class="field"><label>Precio ($)</label><input type="number" id="pr-precio" placeholder="0"></div>
+        <div class="field"><label>Estado</label><select id="pr-activo"><option value="true">Activo</option><option value="false">Inactivo</option></select></div>
+      </div>
+      <div class="field"><label>URL de foto (opcional)</label><input type="text" id="pr-foto" placeholder="https://..."></div>
+    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModalProducto()">Cancelar</button><button class="btn solid" onclick="saveProducto()">Guardar</button></div>
+  </div>
+</div>
+
+
 <div class="toast" id="toast"></div>
 
 <script>
-const SUPABASE_URL='https://fbmcqpuohcaffillaund.supabase.co';
-const SUPABASE_KEY='sb_publishable_Bx24U3RsiRJEukDf3CkbNA_OW8pKiN-';
-const USER_ID='20cb2080-45a2-4ad8-9730-2b4e512f678d';
+
+const SUPABASE_URL='https://hlmsddzvwcxbjmjjqtgy.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhsbXNkZHp2d2N4YmptampxdGd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxNzIxODAsImV4cCI6MjA5Nzc0ODE4MH0.qbRAQP41ni085xrqiGui_esThfANcmQW8kqczoN-zA8';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 const SERVICIOS_DEFAULT=[
@@ -731,6 +623,9 @@ const srvIcons=[
   `<svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.8"><path d="M8 2h8l4 10H4L8 2z"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><line x1="12" y1="12" x2="12" y2="20"/></svg>`,
 ];
 
+const VEH_KEYS={'Auto':'auto','Moto':'moto','Camioneta / SUV':'camioneta'};
+function getPrecioVeh(s,veh){if(!s)return 0;const pv=s.precios_vehiculo||{};const k=VEH_KEYS[veh];return(k&&pv[k]!==undefined)?pv[k]:s.precio||0;}
+function getDurVeh(s,veh){if(!s)return 30;const dv=s.duraciones_vehiculo||{};const k=VEH_KEYS[veh];return(k&&dv[k])?dv[k]:s.duracion_min||30;}
 let servicios=[],turnos=[],productos=[],config={},calMes=new Date(),calMesDueno=new Date();
 let selVeh=null,selServicio=null,selFecha=null,selHora=null,editTurnoId=null,editSrvId=null,editProdId=null,wspData=null;
 
@@ -747,10 +642,10 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 
 async function loadAll(){
   const[{data:srv},{data:cfg},{data:trn},{data:prods}]=await Promise.all([
-    sb.from('servicios_lavadero').select('*').eq('user_id',USER_ID).order('id'),
-    sb.from('config_lavadero').select('*').eq('user_id',USER_ID),
-    sb.from('turnos_lavadero').select('*').eq('user_id',USER_ID).order('fecha').order('hora'),
-    sb.from('productos_lavadero').select('*').eq('user_id',USER_ID).order('id')
+    sb.from('servicios').select('*').order('id'),
+    sb.from('config').select('*'),
+    sb.from('turnos').select('*').order('fecha').order('hora'),
+    sb.from('productos').select('*').order('id')
   ]);
   servicios=(srv&&srv.length)?srv:SERVICIOS_DEFAULT;
   turnos=trn||[];
@@ -765,15 +660,14 @@ async function loadAll(){
   renderDashboard();loadTurnos();renderServicios();renderProductos();loadConfig();
 }
 
-function showCliente(){document.getElementById('login-screen').style.display='none';document.getElementById('dueno-screen').style.display='none';document.getElementById('cliente-screen').style.display='block';}
-function showLogin(){document.getElementById('cliente-screen').style.display='none';document.getElementById('login-screen').style.display='flex';}
-function cerrarSesion(){showCliente();}
+function showCliente(){document.getElementById('login-screen').style.display='flex';document.getElementById('dueno-screen').style.display='none';}
+function showLogin(){document.getElementById('login-screen').style.display='flex';}
+function cerrarSesion(){document.getElementById('dueno-screen').style.display='none';document.getElementById('login-screen').style.display='flex';}
 
 async function doLogin(){
   const pass=document.getElementById('login-pass').value;
   if(pass===(config.password_dueno||'1234')){
     document.getElementById('login-screen').style.display='none';
-    document.getElementById('cliente-screen').style.display='none';
     document.getElementById('dueno-screen').style.display='block';
     showPage('dashboard');
   } else toast('⚠ Contraseña incorrecta');
@@ -800,12 +694,12 @@ function renderSrvGrid(){
         <div class="srv-ico">${srvIcons[i%srvIcons.length]}</div>
         <div>
           <div class="srv-nm">${s.nombre}</div>
-          <div class="srv-tm">⏱ ${s.duracion_min} min</div>
+          <div class="srv-tm">⏱ ${getDurVeh(s,selVeh)} min</div>
         </div>
       </div>
       <div style="display:flex;align-items:center">
         <div class="srv-right">
-          <div class="srv-pr">${fmtPrecio(s.precio)}</div>
+          <div class="srv-pr">${fmtPrecio(getPrecioVeh(s,selVeh))}</div>
         </div>
         <div class="srv-check2"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
       </div>
@@ -870,7 +764,8 @@ function renderSlots(){
   turnosDia.forEach(t=>{
     // Buscar el servicio para saber su duración real
     const srv=servicios.find(s=>s.nombre===t.servicio);
-    const durSrv=srv?srv.duracion_min:dur; // usa duración del servicio o la por defecto
+    const vehTurno=t.vehiculo?t.vehiculo.split(' — ')[0]:selVeh;
+    const durSrv=srv?getDurVeh(srv,vehTurno):dur; // usa duración del servicio o la por defecto
 
     const horaInicio=new Date('2000-01-01T'+t.hora);
     const horaFin=new Date(horaInicio.getTime()+durSrv*60000);
@@ -887,7 +782,7 @@ function renderSlots(){
     // También bloquear slots donde el nuevo turno colisionaría con este
     // (si el servicio seleccionado empieza antes y termina después del inicio del turno existente)
     const srvSel=servicios.find(s=>s.id===selServicio);
-    const durSel=srvSel?srvSel.duracion_min:dur;
+    const durSel=srvSel?getDurVeh(srvSel,selVeh):dur;
     slots.forEach(slot=>{
       const slotDate=new Date('2000-01-01T'+slot);
       const slotFin=new Date(slotDate.getTime()+durSel*60000);
@@ -920,7 +815,7 @@ function clienteStep4(){
     <div class="dmv-res-row"><span class="lbl">Servicio</span><span>${srv.nombre}</span></div>
     <div class="dmv-res-row"><span class="lbl">Día</span><span>${fmtFecha(selFecha)}</span></div>
     <div class="dmv-res-row"><span class="lbl">Hora</span><span>${selHora}</span></div>
-    <div class="dmv-res-row"><span class="lbl">Total</span><span>${fmtPrecio(srv.precio)}</span></div>`;
+    <div class="dmv-res-row"><span class="lbl">Total</span><span>${fmtPrecio(getPrecioVeh(srv,selVeh))}</span></div>`;
   goClienteStep(4);
 }
 
@@ -934,10 +829,10 @@ async function confirmarTurno(){
   try{
     const srv=servicios.find(s=>s.id===selServicio);
     const vehiculoCompleto=`${selVeh} — ${modelo}`;
-    const {error}=await sb.from('turnos_lavadero').insert([{user_id:USER_ID,
+    const {error}=await sb.from('turnos').insert([{
       fecha:selFecha,hora:selHora,nombre,whatsapp:'-',
       vehiculo:vehiculoCompleto,patente:null,
-      servicio:srv.nombre,precio:srv.precio,estado:'confirmado'
+      servicio:srv.nombre,precio:getPrecioVeh(srv,selVeh),estado:'confirmado'
     }]);
     if(error){toast('Error al guardar: '+error.message);return;}
     wspData={nombre,srv,fecha:selFecha,hora:selHora,vehiculo:vehiculoCompleto,modelo};
@@ -948,7 +843,7 @@ async function confirmarTurno(){
       <div class="dmv-res-row"><span class="lbl">Servicio</span><span>${srv.nombre}</span></div>
       <div class="dmv-res-row"><span class="lbl">Día</span><span>${fmtFecha(selFecha)}</span></div>
       <div class="dmv-res-row"><span class="lbl">Hora</span><span>${selHora}</span></div>
-      <div class="dmv-res-row"><span class="lbl">Total</span><span>${fmtPrecio(srv.precio)}</span></div>`;
+      <div class="dmv-res-row"><span class="lbl">Total</span><span>${fmtPrecio(getPrecioVeh(srv,selVeh))}</span></div>`;
     goClienteStep(5);
     renderCatalogo();
     try{ await loadAll(); }catch(e){ /* silencioso */ }
@@ -1043,13 +938,13 @@ async function saveProducto(){
   if(!nombre){toast('⚠ Ingresá el nombre');return;}
   const data={nombre,descripcion:document.getElementById('pr-desc').value.trim()||null,precio:parseFloat(document.getElementById('pr-precio').value)||0,activo:document.getElementById('pr-activo').value==='true',foto_url:document.getElementById('pr-foto').value.trim()||null};
   let error;
-  if(editProdId){({error}=await sb.from('productos_lavadero').update(data).eq('id',editProdId).eq('user_id',USER_ID));}
-  else{({error}=await sb.from('productos_lavadero').insert([data]));}
+  if(editProdId){({error}=await sb.from('productos').update(data).eq('id',editProdId));}
+  else{({error}=await sb.from('productos').insert([data]));}
   if(error){toast('Error: '+error.message);return;}
   toast('Producto guardado');closeModalProducto();await loadAll();
 }
 
-async function deleteProducto(id){if(!confirm('¿Eliminar este producto?'))return;await sb.from('productos_lavadero').delete().eq('id',id).eq('user_id',USER_ID);await loadAll();toast('Eliminado');}
+async function deleteProducto(id){if(!confirm('¿Eliminar este producto?'))return;await sb.from('productos').delete().eq('id',id);await loadAll();toast('Eliminado');}
 
 function showPage(p){
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
@@ -1126,7 +1021,7 @@ async function saveHorarios(){
   });
   cfg.push({clave:'turnos_simultaneos',valor:document.getElementById('cfg-simultaneous').value});
   cfg.push({clave:'duracion_defecto',valor:document.getElementById('cfg-dur-panel').value});
-  for(const c of cfg) await sb.from('config_lavadero').upsert({user_id:USER_ID,clave:c.clave,valor:c.valor},{onConflict:'user_id,clave'});
+  for(const c of cfg) await sb.from('config').upsert({clave:c.clave,valor:c.valor},{onConflict:'clave'});
   toast('✓ Horarios guardados');
   await loadAll();
 }
@@ -1300,11 +1195,15 @@ async function saveConfig(){
   ];
   const newPass=document.getElementById('cfg-pass').value;
   if(newPass) cfg.push({clave:'password_dueno',valor:newPass});
-  for(const c of cfg) await sb.from('config_lavadero').upsert({user_id:USER_ID,clave:c.clave,valor:c.valor},{onConflict:'user_id,clave'});
+  for(const c of cfg) await sb.from('config').upsert({clave:c.clave,valor:c.valor},{onConflict:'clave'});
   toast('✓ Configuración guardada');await loadAll();
 }
 
+// Panel arranca directo en el dashboard
+document.getElementById('login-screen').style.display='none';
+document.getElementById('dueno-screen').style.display='block';
 loadAll();
+
 </script>
 </body>
 </html>
